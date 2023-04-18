@@ -59,12 +59,6 @@ values
 (1, 1, 1),
 (2, 2, 2);
 
-insert into customer (id, name, gender, date_of_birth, email, phone, address, deleted, account_id)
-values
-(1, 'Hữu Hoàng', 1, '1996-04-09', 'hoang@gmail.com', '0905112345', '123 Hùng Vương', 0, 2),
-(2, 'Phạm Tiến', 1, '1994-08-12', 'tien@gmail.com', '0903892377', '03 Núi Thành', 0, 2),
-(3, 'Diệu Quỳnh', 0, '1992-11-22', 'quynh@gmail.com', '0907237623', '30 Đống Đa', 0, 2),
-(4, 'Thu Thảo', 0, '1993-05-15', 'thao@gmail.com', '0707888123', '12 Điện Biên Phủ', 0, 2);
 
 
 

@@ -3,23 +3,14 @@ use appshop;
 
 create table account(
 	id int unsigned auto_increment key,
-    username varchar(20) not null,
-    password varchar(20) not null
-);
-
-create table employee (
-	id int unsigned auto_increment key,
     name varchar(45) not null,
     gender bit not null,
-    date_of_birth varchar(45) not null,
-    id_card int unsigned not null,
-    phone int unsigned not null,
+    date_of_birth date not null,
     email varchar(45) not null,
+    phone varchar(20) not null,
     address varchar(45) not null,
-    avatar varchar(255),
-    deleted bit,
-    account_id int unsigned,
-    foreign key (account_id) references account(id)
+    password varchar(20) not null,
+    deleted bit
 );
 
 create table role (
@@ -54,26 +45,13 @@ create table product(
     foreign key (category_id) references category(id)
 );
 
-create table customer(
-	id int unsigned auto_increment primary key,
-    name varchar(45) not null,
-    gender bit not null,
-    date_of_birth date not null,
-    email varchar(45) not null,
-    phone varchar(20) not null,
-    address varchar(45) not null,
-    deleted bit,
-    account_id int unsigned,
-    foreign key (account_id) references account(id)
-);
-
 create table `order`(
 	id int unsigned auto_increment primary key,
     code_order varchar(45) not null,
     day_order date not null,
     deleted bit,
-    customer_id int unsigned,
-    foreign key (customer_id) references customer(id)
+    account_id int unsigned,
+    foreign key (account_id) references account(id)
 );
 
 create table order_detail (
