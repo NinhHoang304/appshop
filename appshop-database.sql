@@ -10,14 +10,14 @@ create table account(
 create table employee (
 	id int unsigned auto_increment key,
     name varchar(45) not null,
-    gender boolean not null,
+    gender bit not null,
     date_of_birth varchar(45) not null,
     id_card int unsigned not null,
     phone int unsigned not null,
     email varchar(45) not null,
     address varchar(45) not null,
     avatar varchar(255),
-    deleted boolean,
+    deleted bit,
     account_id int unsigned,
     foreign key (account_id) references account(id)
 );
@@ -48,27 +48,21 @@ create table product(
     quantity int unsigned not null,
     brand varchar(45) not null,
     description text,
-    deleted boolean,
+    image text,
+    deleted bit,
     category_id int unsigned,
     foreign key (category_id) references category(id)
-);
-
-create table image(
-	id int unsigned auto_increment primary key,
-    name text,
-    product_id int unsigned,
-    foreign key (product_id) references product(id)
 );
 
 create table customer(
 	id int unsigned auto_increment primary key,
     name varchar(45) not null,
-    gender boolean not null,
+    gender bit not null,
     date_of_birth date not null,
     email varchar(45) not null,
     phone varchar(20) not null,
     address varchar(45) not null,
-    deleted boolean,
+    deleted bit,
     account_id int unsigned,
     foreign key (account_id) references account(id)
 );
@@ -77,7 +71,7 @@ create table `order`(
 	id int unsigned auto_increment primary key,
     code_order varchar(45) not null,
     day_order date not null,
-    deleted boolean,
+    deleted bit,
     customer_id int unsigned,
     foreign key (customer_id) references customer(id)
 );
