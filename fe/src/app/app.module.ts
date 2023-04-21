@@ -11,6 +11,7 @@ import { ContentComponent } from './component/shared/content/content.component';
 import { ProductDetailComponent } from './component/product/product-detail/product-detail.component';
 import { ShoppingCartComponent } from './component/cart/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './component/login/login/login.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LoginComponent } from './component/login/login/login.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

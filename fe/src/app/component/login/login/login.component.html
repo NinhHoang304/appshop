@@ -21,14 +21,14 @@
                 </p>
               </div>
             </div>
-            <div class="signin-form">
+            <form *ngIf="loginForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="signin-form">
               <div class="form-group mb-3">
                 <label class="label" for="name">Username</label>
-                <input type="text" id="name" class="form-control" placeholder="Username" required>
+                <input type="email" id="name" formControlName="username" class="form-control" placeholder="Username" required>
               </div>
               <div class="form-group mb-3">
                 <label class="label" for="password">Password</label>
-                <input type="password" id="password" class="form-control" placeholder="Password"
+                <input type="password" formControlName="password" id="password" class="form-control" placeholder="Password"
                        required>
               </div>
               <div class="form-group">
@@ -37,7 +37,7 @@
               </div>
               <div class="form-group d-md-flex">
                 <div class="w-50 text-left">
-                  <label class="checkbox-wrap checkbox-primary mb-0" style="color: #717fe0">Remember Me
+                  <label class="checkbox-wrap checkbox-primary mb-0" formControlName="rememberMe" style="color: #717fe0">Remember Me
                     <input type="checkbox">
                     <span class="checkmark"></span>
                   </label>
@@ -46,7 +46,7 @@
                   <a href="#">Forgot Password</a>
                 </div>
               </div>
-            </div>
+            </form>
             <p class="text-center">Not a member? <a data-toggle="tab" href="#" style="color: #717fe0">Sign Up</a></p>
           </div>
         </div>
