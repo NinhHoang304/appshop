@@ -46,13 +46,13 @@ values
 
 insert into role (id, name)
 values
-(1, 'Manager'),
-(2, 'Customer');
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_USER');
 
-insert into account (id, username, password)
+insert into account (account_id, address, date_of_birth, deleted, email, gender, name, password, phone)
 values
-(1, 'manager@gmail.com', '123456'),
-(2, 'khachhang@gmail.com', '123456');
+(1, '123 Hung Vuong', '1996-04-04', 0, 'hoang@gmail.com', 0, 'HuuHoang', '$2a$12$/2724fWWWxRUhObLpNnvi.6QtqgWFho9bROwk8RqRwcM0ShkW6ZwO', '0905123456'),
+(2, '234 Dong Da', '1998-02-02', 0, 'quantran@gmail.com', 0, 'QuanTran', '$2a$12$/2724fWWWxRUhObLpNnvi.6QtqgWFho9bROwk8RqRwcM0ShkW6ZwO', '0905234123');
 
 insert into account_role (id, role_id, account_id)
 values

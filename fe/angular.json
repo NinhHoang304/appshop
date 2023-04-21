@@ -27,14 +27,6 @@
               "src/styles.css"
             ],
             "scripts": [
-              "./src/assets/js/myjs.js",
-              "./src/assets/js/main.js",
-              "./src/assets/js/map-custom.js",
-              "./src/assets/js/slick-custom.js",
-              "./src/assets/vendor/animsition/js/animsition.min.js",
-              "./src/assets/vendor/bootstrap/js/bootstrap.min.js",
-              "./src/assets/vendor/bootstrap/js/popper.min.js",
-              "./src/assets/vendor/bootstrap/js/tooltip.js"
             ]
           },
           "configurations": {

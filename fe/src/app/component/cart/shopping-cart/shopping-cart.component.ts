@@ -10,6 +10,10 @@ export class ShoppingCartComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.view();
   }
 
+  view(): void {
+    window.scrollTo(0, 0);
+  }
 }
