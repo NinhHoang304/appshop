@@ -2,7 +2,8 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top text-white" style="background-color: black; height: 80px">
   <div class="container">
     <a class="navbar-brand" href="#">AppShop</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -37,7 +38,7 @@
             <i class="fa fa-search fa-lg" aria-hidden="true"></i>
           </a>
         </li>
-        <li class="nav-item" style="margin-left: 15px">
+        <li [hidden]="!isLoggedIn" class="nav-item" style="margin-left: 15px">
           <a type="button" style="color: white" routerLink="product/cart">
             <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
           </a>

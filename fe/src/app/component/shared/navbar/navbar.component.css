@@ -1,6 +1,6 @@
 .navbar-light .navbar-brand {
   color: #fff;
-  font-size: 25px;
+  font-size: 35px;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 2px;
@@ -24,6 +24,8 @@
 
 .nav-link {
   padding: .2rem 2rem;
+  font-size: 17px;
+  margin-left: 5px;
 }
 
 .nav-link.active,.nav-link:focus{

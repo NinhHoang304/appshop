@@ -12,6 +12,7 @@ import { ProductDetailComponent } from './component/product/product-detail/produ
 import { ShoppingCartComponent } from './component/cart/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './component/login/login/login.component';
 import {RouterModule} from '@angular/router';
+import { ErrorComponent } from './component/error/error.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +22,15 @@ import {RouterModule} from '@angular/router';
     ContentComponent,
     ProductDetailComponent,
     ShoppingCartComponent,
-    LoginComponent
+    LoginComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
