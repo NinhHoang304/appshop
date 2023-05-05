@@ -4,6 +4,10 @@ import {ProductService} from '../../../service/product.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {TokenStorageService} from '../../security-authentication/service/token-storage.service';
 import {ShareService} from '../../security-authentication/service/share.service';
+import {CartService} from '../../../service/cart.service';
+import {Cart} from '../../../model/cart';
+import {CartDetail} from '../../../model/cart-detail';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,11 +22,18 @@ export class ProductDetailComponent implements OnInit {
   username: string;
   currentUser: string;
   nameEmployee: string;
+  userId: number;
+  cartId: number;
+  quantity = 1;
+  deleted = false;
+  cartDetail: CartDetail;
+  isDisabled: boolean;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
               private tokenStorageService: TokenStorageService,
-              private shareService: ShareService) {
+              private shareService: ShareService,
+              private cartService: CartService) {
   }
 
   ngOnInit(): void {
@@ -43,11 +54,15 @@ export class ProductDetailComponent implements OnInit {
     this.isLoggedIn = this.username != null;
     this.getUsernameAccount();
   }
+
   getUsernameAccount() {
     if (this.tokenStorageService.getToken()) {
       this.nameEmployee = this.tokenStorageService.getUser().name;
+      this.userId = this.tokenStorageService.getUser().id;
+      this.getCartIdByAccountId();
     }
   }
+
   getProductById() {
     this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.id = +param.get('id');
@@ -58,7 +73,51 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
+  getCartIdByAccountId() {
+    this.cartService.getCartIdByAccountId(this.userId).subscribe(item => {
+      this.cartId = item.cartId;
+    });
+  }
+
   view(): void {
     window.scrollTo(0, 0);
+  }
+
+  subtract() {
+    if (this.quantity <= 1) {
+      this.quantity = 1;
+    } else {
+      this.quantity--;
+    }
+  }
+
+  add() {
+    this.quantity++;
+  }
+
+
+  addToCart(id: number) {
+    this.cartDetail = {
+      quantity: this.quantity,
+      deleted: this.deleted,
+      cart: {id: this.cartId},
+      product: {id}
+    };
+    console.log('asd22' + this.cartDetail);
+    this.cartService.addToCart(this.quantity, this.deleted, this.id, this.cartId).subscribe(next => {
+      Swal.fire({
+        title: 'Add Item To Cart Success!',
+        text: 'Do you want to continue',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      });
+    });
+  }
+
+  changeQuantity(event) {
+    if (isNaN(event.target.value) || event.target.value < 0) {
+      alert('Number invalid');
+      this.quantity = 1;
+    }
   }
 }

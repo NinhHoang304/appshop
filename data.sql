@@ -7,7 +7,7 @@ values
 (3, 'IMac'),
 (4, 'Apple Watch'),
 (5, 'AirPod'),
-(6, 'Phụ kiện');
+(6, 'Accessories');
 
 insert into product (id, code, name, price, quantity, brand, description, image, deleted, category_id)
 values
@@ -59,6 +59,14 @@ values
 (1, 1, 1),
 (2, 2, 2);
 
+insert into cart (id, date_order, account_id)
+values
+(1, '2023-04-27', 2);
+
+insert into cart_detail (id, deleted, quantity, cart_id, product_id)
+values
+(1, 0, 1, 1, 2),
+(2, 0, 1, 1, 2);
 
 
 

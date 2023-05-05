@@ -31,16 +31,22 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private Category category;
     @JsonBackReference
+    private Category category;
+
     @OneToMany(mappedBy = "product")
-    private Set<OrderDetail> orderDetailSet;
+    @JsonBackReference
+    private Set<CartDetail> cartDetailSet;
+
+    public Product(Long id) {
+        this.id = id;
+    }
 
     public Product() {
     }
 
     public Product(Long id, String code, String name, double price, int quantity, String brand,
-                   String description, String image, boolean deleted, Category category, Set<OrderDetail> orderDetailSet) {
+                   String description, String image, boolean deleted, Category category, Set<CartDetail> cartDetailSet) {
         this.id = id;
         this.code = code;
         this.name = name;
@@ -51,7 +57,7 @@ public class Product {
         this.image = image;
         this.deleted = deleted;
         this.category = category;
-        this.orderDetailSet = orderDetailSet;
+        this.cartDetailSet = cartDetailSet;
     }
 
     public Long getId() {
@@ -134,11 +140,11 @@ public class Product {
         this.category = category;
     }
 
-    public Set<OrderDetail> getOrderDetailSet() {
-        return orderDetailSet;
+    public Set<CartDetail> getOrderDetailSet() {
+        return cartDetailSet;
     }
 
-    public void setOrderDetailSet(Set<OrderDetail> orderDetailSet) {
-        this.orderDetailSet = orderDetailSet;
+    public void setOrderDetailSet(Set<CartDetail> cartDetailSet) {
+        this.cartDetailSet = cartDetailSet;
     }
 }

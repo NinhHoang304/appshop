@@ -7,59 +7,40 @@
           <div class="wrap-table-shopping-cart">
             <table class="table-shopping-cart">
               <tr class="table_head">
-                <th class="column-1">Product</th>
-                <th class="column-2"></th>
-                <th class="column-3">Price</th>
-                <th class="column-4">Quantity</th>
-                <th class="column-5">Total</th>
+                <th class="column-1 text-center">Product</th>
+                <th class="column-2 text-center"></th>
+                <th class="column-3 text-center">Price</th>
+                <th class="column-4 text-center">Quantity</th>
+                <th class="column-5 text-center">Total</th>
+                <th class="column-6 text-center">Delete</th>
               </tr>
 
-              <tr class="table_row">
+              <tr *ngFor="let item of cartList" class="table_row">
                 <td class="column-1">
                   <div class="how-itemcart1">
-                    <img src="assets/images/item-cart-04.jpg" alt="IMG">
+                    <img src="{{item?.imageProduct}}" alt="IMG">
                   </div>
                 </td>
-                <td class="column-2">Fresh Strawberries</td>
-                <td class="column-3">$ 36.00</td>
+                <td class="column-2">{{item?.nameProduct}}</td>
+                <td class="column-3">{{item?.priceProduct | number:'1.0-0'}} $</td>
                 <td class="column-4">
                   <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" (click)="subtract(item.cartDetailId, item.productId, item.cartId)">
                       <i class="fs-16 zmdi zmdi-minus"></i>
                     </div>
-
-                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="1">
-
-                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" readonly value="{{item?.quantityCartDetail}}">
+                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" (click)="add(item.cartDetailId, item.productId, item.cartId)">
                       <i class="fs-16 zmdi zmdi-plus"></i>
                     </div>
                   </div>
                 </td>
-                <td class="column-5">$ 36.00</td>
-              </tr>
-
-              <tr class="table_row">
-                <td class="column-1">
-                  <div class="how-itemcart1">
-                    <img src="assets/images/item-cart-05.jpg" alt="IMG">
-                  </div>
+                <td class="column-5">{{item?.amountCartDetail | number:'1.0-0'}} $</td>
+                <td class="column-5">
+                  <!-- Button trigger modal -->
+                  <button type="button" (click)="getInfoDelete(item.cartDetailId, item.nameProduct)" class="btn" data-toggle="modal" data-target="#exampleModal">
+                    <img src="https://shopdunk.com/images/uploaded-source/icon/remove-cart.png" alt="">
+                  </button>
                 </td>
-                <td class="column-2">Lightweight Jacket</td>
-                <td class="column-3">$ 16.00</td>
-                <td class="column-4">
-                  <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                      <i class="fs-16 zmdi zmdi-minus"></i>
-                    </div>
-
-                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product2" value="1">
-
-                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                      <i class="fs-16 zmdi zmdi-plus"></i>
-                    </div>
-                  </div>
-                </td>
-                <td class="column-5">$ 16.00</td>
               </tr>
             </table>
           </div>
@@ -95,7 +76,7 @@
 
             <div class="size-209">
 								<span class="mtext-110 cl2">
-									$79.65
+									{{totalAmount | number:'1.0-0'}} $
 								</span>
             </div>
           </div>
@@ -109,7 +90,7 @@
 
             <div class="size-209 p-t-1">
 								<span class="mtext-110 cl2">
-									$79.65
+									{{totalAmount | number:'1.0-0'}} $
 								</span>
             </div>
           </div>
@@ -118,6 +99,27 @@
             Proceed to Checkout
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Remove Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" >&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span class="text-danger">Do you want to remove this item: </span> {{this.nameProduct}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteCartDetail(cartDetailId)">Remove</button>
       </div>
     </div>
   </div>

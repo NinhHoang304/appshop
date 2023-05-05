@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.view();
     debugger
     if (this.loginService.isLoggedIn) {
       Swal.fire({
@@ -36,7 +37,6 @@ export class LoginComponent implements OnInit {
       });
       this.router.navigateByUrl('/');
     }
-    this.view();
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.email, Validators.required]),
       password: new FormControl('', [Validators.required]),

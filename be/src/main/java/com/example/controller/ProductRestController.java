@@ -4,6 +4,7 @@ import com.example.model.Product;
 import com.example.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,13 @@ public class ProductRestController {
 
     @GetMapping("/product/list")
     public ResponseEntity<Page<Product>> getAllProduct(@RequestParam(required = false, defaultValue = "") String name,
-                                                       @RequestParam(required = false) Long categoryId,
-                                                       @PageableDefault(page = 0, size = 8) Pageable pageable) {
+                                                       @RequestParam(required = false, defaultValue = "0") Long categoryId,
+                                                       @RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "8") int size) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage;
 
-        if (categoryId == null) {
+        if (categoryId == 0) {
             productPage = this.productService.findProductByName(name, pageable);
         } else {
             productPage = this.productService.findProducts(name, categoryId, pageable);

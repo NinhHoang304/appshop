@@ -29,9 +29,9 @@ public class Account {
     private String password;
     @Column(columnDefinition = "bit(1)")
     private boolean deleted;
-    @JsonBackReference
-    @OneToMany(mappedBy = "account")
-    private Set<Orders> ordersSet;
+
+    @OneToOne(mappedBy = "account")
+    private Cart cart;
     @JsonBackReference
     @OneToMany(mappedBy = "account")
     private Set<AccountRole> accountRoleSet;
@@ -39,8 +39,8 @@ public class Account {
     public Account() {
     }
 
-    public Account(Long id, String name, boolean gender, String dateOfBirth, String email, String phone,
-                   String address, String password, boolean deleted, Set<Orders> ordersSet, Set<AccountRole> accountRoleSet) {
+    public Account(Long id, String name, boolean gender, String dateOfBirth, String email,
+                   String phone, String address, String password, boolean deleted, Cart cart, Set<AccountRole> accountRoleSet) {
         this.id = id;
         this.name = name;
         this.gender = gender;
@@ -50,7 +50,7 @@ public class Account {
         this.address = address;
         this.password = password;
         this.deleted = deleted;
-        this.ordersSet = ordersSet;
+        this.cart = cart;
         this.accountRoleSet = accountRoleSet;
     }
 
@@ -126,12 +126,12 @@ public class Account {
         this.deleted = deleted;
     }
 
-    public Set<Orders> getOrdersSet() {
-        return ordersSet;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setOrdersSet(Set<Orders> ordersSet) {
-        this.ordersSet = ordersSet;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Set<AccountRole> getAccountRoleSet() {

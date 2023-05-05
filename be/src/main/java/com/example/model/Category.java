@@ -12,8 +12,9 @@ public class Category {
     private Long id;
     @Column(columnDefinition = "varchar(45)", nullable = false)
     private String name;
-    @JsonBackReference
+
     @OneToMany(mappedBy = "category")
+    @JsonBackReference
     private Set<Product> productSet;
 
     public Category() {

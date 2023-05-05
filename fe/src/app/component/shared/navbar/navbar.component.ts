@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   nameEmployee: string;
   role: string;
   isLoggedIn = false;
+  userId: number;
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
@@ -56,6 +57,7 @@ export class NavbarComponent implements OnInit {
   getUsernameAccount() {
     if (this.tokenStorageService.getToken()) {
       this.nameEmployee = this.tokenStorageService.getUser().name;
+      this.userId = this.tokenStorageService.getUser().id;
     }
   }
 

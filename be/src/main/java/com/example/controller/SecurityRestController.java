@@ -62,6 +62,7 @@ public class SecurityRestController {
                 new JwtResponse(jwt,
                         userDetails.getUsername(),
                         this.accountService.findAccountByEmail(loginRequest.getUsername()).getName(),
+                        this.accountService.findAccountByEmail(loginRequest.getUsername()).getId(),
                         roles)
         );
     }

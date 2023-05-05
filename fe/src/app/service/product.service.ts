@@ -12,8 +12,9 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllProducts(name: string, categoryId: string, page: number): Observable<Page<Product>> {
-    return this.httpClient.get<Page<Product>>(this.API_URL + '?name=' + name + '&categoryId=' + categoryId + '&page=' + page);
+  getAllProducts(name: string, categoryId: number, page: number, size: number): Observable<Page<Product>> {
+    return this.httpClient.get<Page<Product>>(this.API_URL + '?name=' + name +
+      '&categoryId=' + categoryId + '&page=' + page + '&size=' + size);
   }
 
   getProductById(id: number): Observable<Product> {

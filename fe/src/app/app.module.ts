@@ -1,18 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
-import { NavbarComponent } from './component/shared/navbar/navbar.component';
-import { FooterComponent } from './component/shared/footer/footer.component';
-import { ContentComponent } from './component/shared/content/content.component';
-import { ProductDetailComponent } from './component/product/product-detail/product-detail.component';
-import { ShoppingCartComponent } from './component/cart/shopping-cart/shopping-cart.component';
-import { LoginComponent } from './component/login/login/login.component';
+import {NavbarComponent} from './component/shared/navbar/navbar.component';
+import {FooterComponent} from './component/shared/footer/footer.component';
+import {ContentComponent} from './component/shared/content/content.component';
+import {ProductDetailComponent} from './component/product/product-detail/product-detail.component';
+import {ShoppingCartComponent} from './component/cart/shopping-cart/shopping-cart.component';
+import {LoginComponent} from './component/login/login/login.component';
 import {RouterModule} from '@angular/router';
-import { ErrorComponent } from './component/error/error.component';
+import {ErrorComponent} from './component/error/error.component';
+import {AuthInterceptor} from './component/security-authentication/security-auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ErrorComponent } from './component/error/error.component';
     ReactiveFormsModule,
     RouterModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
