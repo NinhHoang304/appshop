@@ -1,0 +1,44 @@
+<style>
+  td {
+    text-align: center !important;
+  }
+</style>
+<div class="container" style="margin-top: 150px">
+  <div class="p-b-10 mb-4">
+    <h3 class="ltext-103 cl5 text-center">
+      Order History
+    </h3>
+  </div>
+  <div>
+    <table class="table-shopping-cart">
+      <tr class="table_head" style="border: 1px solid #e6e6e6">
+        <th class="column-1 text-center">Product</th>
+        <th class="column-2 text-center">Name</th>
+        <th class="column-3 text-center">Price</th>
+        <th class="column-4 text-center">Quantity</th>
+        <th class="column-5 text-center">Total</th>
+      </tr>
+      <tr *ngIf="!cartList" style="height: 150px; border: 1px solid #e6e6e6">
+        <td colspan="6">
+          <h4 class="text-center">Your order history is empty</h4>
+        </td>
+      </tr>
+      <tr *ngFor="let item of cartList" class="table_row" style="border: 1px solid #e6e6e6">
+        <td class="column-1">
+          <div class="how-itemcart1">
+            <img src="{{item?.imageProduct}}" alt="IMG">
+          </div>
+        </td>
+        <td class="column-2">{{item?.nameProduct}}</td>
+        <td class="column-3">{{item?.priceProduct | number:'1.0-0'}} $</td>
+        <td class="column-4">
+          <div>{{item?.quantityCartDetail}}</div>
+        </td>
+        <td class="column-5">
+          {{item?.amountCartDetail | number:'1.0-0'}} $
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div style="margin-bottom: 200px"></div>

@@ -3,6 +3,8 @@ package com.example.service;
 import com.example.dto.CartDetailDTO;
 import com.example.model.CartDetail;
 
+import java.util.List;
+
 public interface ICartDetailService {
 
     void addToCart(CartDetail cartDetail);
@@ -14,4 +16,5 @@ public interface ICartDetailService {
     CartDetail findById(Long id);
 
     void delete(Long id);
+
 }

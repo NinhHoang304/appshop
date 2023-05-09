@@ -55,8 +55,10 @@
             </a>
 
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Change Password</a></li>
-              <li><a class="dropdown-item" href="#" (click)="logOut()">Logout</a></li>
+              <li><a class="dropdown-item">Information</a></li>
+              <li><a class="dropdown-item" routerLink="order/history/{{userId}}">Order History</a></li>
+              <li><a class="dropdown-item">Change Password</a></li>
+              <li><a class="dropdown-item" (click)="logOut()">Logout</a></li>
             </ul>
           </div>
         </li>

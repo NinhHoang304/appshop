@@ -6,6 +6,7 @@ import {ProductDetailComponent} from './component/product/product-detail/product
 import {ShoppingCartComponent} from './component/cart/shopping-cart/shopping-cart.component';
 import {UserGuard} from './component/security-authentication/security-auth/user.guard';
 import {ErrorComponent} from './component/error/error.component';
+import {OrderHistoryComponent} from './component/order-history/order-history.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'product/detail/:id', component: ProductDetailComponent},
   {path: 'product/cart/:id', component: ShoppingCartComponent, canActivate: [UserGuard]},
+  {path: 'order/history/:id', component: OrderHistoryComponent, canActivate: [UserGuard]},
   {path: '**', component: ErrorComponent}
 ];
 

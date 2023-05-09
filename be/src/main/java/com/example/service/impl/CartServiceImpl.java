@@ -17,4 +17,9 @@ public class CartServiceImpl implements ICartService {
         return this.cartRepository.getCartByAccountId(id);
     }
 
+    @Override
+    public List<ICartDTO> getOrderHistory(Long id) {
+        return this.cartRepository.getOrderHistory(id);
+    }
+
 }

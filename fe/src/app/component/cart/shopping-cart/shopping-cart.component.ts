@@ -4,7 +4,6 @@ import {CartDTO} from '../../../dto/cart-dto';
 import Swal from 'sweetalert2';
 import {TokenStorageService} from '../../security-authentication/service/token-storage.service';
 import {render} from 'creditcardpayments/creditCardPayments';
-import {ShareService} from '../../security-authentication/service/share.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -20,7 +19,6 @@ export class ShoppingCartComponent implements OnInit {
   nameProduct = '';
   totalAmount = 0;
   userId: number;
-  paypalButton: any;
 
   constructor(private cartService: CartService,
               private tokenStorageService: TokenStorageService) {
@@ -43,21 +41,30 @@ export class ShoppingCartComponent implements OnInit {
       }
       console.log(this.cartList);
       document.querySelector('#myPaypalButtons').innerHTML = '';
-      this.paypalButton = render({
+      render({
         id: '#myPaypalButtons',
         currency: 'USD',
         value: this.totalAmount.toString(),
         onApprove: (details) => {
           this.cartService.payment(this.cartList).subscribe(() => {
             Swal.fire({
-              title: 'Success!',
+              title: 'Payment Success!',
               text: 'You are all set!',
               icon: 'success',
               confirmButtonText: 'Ok'
             });
             this.totalAmount = 0;
             this.getCart();
-          });
+          },
+            (error) => {
+              Swal.fire({
+                title: 'Payment Error!',
+                text: error.error,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+              });
+            }
+          );
         }
       });
     });
@@ -101,7 +108,7 @@ export class ShoppingCartComponent implements OnInit {
   deleteCartDetail(cartDetailId: number) {
     this.cartService.deleteCartById(cartDetailId).subscribe(next => {
       Swal.fire({
-        title: 'Success!',
+        title: 'Remove Success!',
         text: 'Do you want to continue',
         icon: 'success',
         confirmButtonText: 'Ok'

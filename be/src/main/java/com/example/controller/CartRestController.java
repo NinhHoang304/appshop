@@ -10,6 +10,7 @@ import com.example.model.Product;
 import com.example.service.IAccountService;
 import com.example.service.ICartDetailService;
 import com.example.service.ICartService;
+import com.example.service.IProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,8 @@ public class CartRestController {
     private IAccountService accountService;
     @Autowired
     private ICartDetailService cartDetailService;
+    @Autowired
+    private IProductService productService;
 
     @GetMapping("cart/{id}")
     public ResponseEntity<List<ICartDTO>> getCartByAccountId(@PathVariable Long id) {
@@ -100,11 +103,29 @@ public class CartRestController {
     @Transactional
     public ResponseEntity<?> payment(@RequestBody List<CartDTO> cartList) {
         if (cartList != null) {
-            for (int i = 0; i < cartList.size(); i++) {
-                this.cartDetailService.changStatusDeleted(cartList.get(i).getCartDetailId());
+            for (CartDTO cartDTO : cartList) {
+                Product product = this.productService.findProductById(cartDTO.getProductId());
+                if (product.getQuantity() == 0) {
+                    return new ResponseEntity<>(product.getName() + " is sold out, please choose another product!", HttpStatus.BAD_REQUEST);
+                } else if (cartDTO.getQuantityCartDetail() > product.getQuantity()) {
+                    return new ResponseEntity<>(product.getName() + " is not enough, please change quantity this product!!", HttpStatus.BAD_REQUEST);
+                } else {
+                    product.setQuantity(product.getQuantity() - cartDTO.getQuantityCartDetail());
+                    this.productService.save(product);
+                    this.cartDetailService.changStatusDeleted(cartDTO.getCartDetailId());
+                    return new ResponseEntity<>(HttpStatus.OK);
+                }
             }
-            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("orderHistory/{accountId}")
+    public ResponseEntity<List<ICartDTO>> getOrderHistory(@PathVariable Long accountId) {
+        List<ICartDTO> cartDTOList = this.cartService.getOrderHistory(accountId);
+        if (cartDTOList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(cartDTOList, HttpStatus.OK);
     }
 }

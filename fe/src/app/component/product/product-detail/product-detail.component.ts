@@ -102,10 +102,10 @@ export class ProductDetailComponent implements OnInit {
       console.log('asd22' + this.cartId);
       this.cartService.addToCart(this.quantity, this.deleted, id, this.cartId).subscribe(next => {
         Swal.fire({
-          title: 'Add Item To Cart Success!',
-          text: 'Do you want to continue',
+          title: 'Success!',
+          text: this.product.name + ' added to cart',
           icon: 'success',
-          confirmButtonText: 'Ok'
+          confirmButtonText: 'Continue'
         });
       });
     });

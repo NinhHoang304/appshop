@@ -46,4 +46,8 @@ export class CartService {
   payment(cartList: CartDTO[]) {
     return this.httpClient.post('http://localhost:8080/api/user/payment', cartList );
   }
+
+  getOrderHistory(id: number): Observable<CartDTO[]> {
+    return this.httpClient.get<CartDTO[]>('http://localhost:8080/api/user/orderHistory/' + id);
+  }
 }

@@ -14,6 +14,8 @@ import {LoginComponent} from './component/login/login/login.component';
 import {RouterModule} from '@angular/router';
 import {ErrorComponent} from './component/error/error.component';
 import {AuthInterceptor} from './component/security-authentication/security-auth/auth.interceptor';
+import { OrderHistoryComponent } from './component/order-history/order-history.component';
+import { InformationUserComponent } from './component/information-user/information-user.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import {AuthInterceptor} from './component/security-authentication/security-auth
     ShoppingCartComponent,
     LoginComponent,
     ErrorComponent,
+    OrderHistoryComponent,
+    InformationUserComponent,
   ],
   imports: [
     BrowserModule,

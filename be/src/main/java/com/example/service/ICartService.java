@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ICartService {
     List<ICartDTO> getCartByAccountId(Long id);
+    List<ICartDTO> getOrderHistory(Long id);
 }
