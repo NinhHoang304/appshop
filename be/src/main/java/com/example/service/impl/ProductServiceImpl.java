@@ -19,10 +19,6 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Page<Product> findProducts(String name, Long categoryId, Pageable pageable) {
-//        Category category = this.categoryRepository.findById(categoryId).orElse(null);
-//        if (category == null){
-//            return this.productRepository.findProductByNameContainingIgnoreCase(name, pageable);
-//        }
         return this.productRepository.findProductByNameContainingIgnoreCaseAndCategory_Id(name, categoryId, pageable);
     }
 
@@ -34,5 +30,10 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public Product findProductById(Long id) {
         return this.productRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void save(Product product) {
+
     }
 }

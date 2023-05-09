@@ -34,7 +34,9 @@
                     </div>
                   </div>
                 </td>
-                <td class="column-5">{{item?.amountCartDetail | number:'1.0-0'}} $</td>
+                <td class="column-5">
+                  {{item?.amountCartDetail | number:'1.0-0'}} $
+                </td>
                 <td class="column-5">
                   <!-- Button trigger modal -->
                   <button type="button" (click)="getInfoDelete(item.cartDetailId, item.nameProduct)" class="btn" data-toggle="modal" data-target="#exampleModal">
@@ -94,10 +96,9 @@
 								</span>
             </div>
           </div>
-
-          <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-            Proceed to Checkout
-          </button>
+          <div class="flex-c-m">
+            <div id="myPaypalButtons"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -109,7 +110,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Remove Product</h5>
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" >&times;</span>
         </button>

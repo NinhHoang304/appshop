@@ -10,6 +10,6 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
 
     Account findAccountByEmail(String email);
 
-    @Query(value = "SELECT c.id as cartId FROM account a join cart c on a.account_id = :accountId ", nativeQuery = true)
+    @Query(value = "SELECT c.id as cartId FROM account a join cart c on a.account_id = c.account_id where c.account_id = :accountId ", nativeQuery = true)
     IAccountDTO findCartIdByAccountId(@Param("accountId") Long accountId);
 }

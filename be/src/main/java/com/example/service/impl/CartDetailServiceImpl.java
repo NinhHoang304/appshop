@@ -5,6 +5,7 @@ import com.example.repository.ICartDetailRepository;
 import com.example.service.ICartDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,14 +14,14 @@ public class CartDetailServiceImpl implements ICartDetailService {
     @Autowired
     private ICartDetailRepository cartDetailRepository;
 
-
+    @Transactional
     @Override
     public void addToCart(CartDetail cartDetail) {
         List<CartDetail> cartDetailList = this.cartDetailRepository.findAll();
-        for (int i = 0; i < cartDetailList.size(); i++) {
-            if (cartDetail.getProduct().getId() == cartDetailList.get(i).getProduct().getId()) {
-                cartDetail.setId(cartDetailList.get(i).getId());
-                cartDetail.setQuantity(cartDetail.getQuantity() + cartDetailList.get(i).getQuantity());
+        for (CartDetail detail : cartDetailList) {
+            if (cartDetail.getProduct().getId() == detail.getProduct().getId()) {
+                cartDetail.setId(detail.getId());
+                cartDetail.setQuantity(cartDetail.getQuantity() + detail.getQuantity());
                 this.cartDetailRepository.save(cartDetail);
             }
         }
@@ -30,6 +31,11 @@ public class CartDetailServiceImpl implements ICartDetailService {
     @Override
     public void changeQuantity(CartDetail cartDetail) {
         this.cartDetailRepository.save(cartDetail);
+    }
+
+    @Override
+    public void changStatusDeleted(Long id) {
+        this.cartDetailRepository.changeStatusDeleted(id);
     }
 
     @Override

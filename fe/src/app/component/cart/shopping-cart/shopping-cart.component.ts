@@ -2,14 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {CartService} from '../../../service/cart.service';
 import {CartDTO} from '../../../dto/cart-dto';
 import Swal from 'sweetalert2';
-import {Router} from '@angular/router';
 import {TokenStorageService} from '../../security-authentication/service/token-storage.service';
+import {render} from 'creditcardpayments/creditCardPayments';
+import {ShareService} from '../../security-authentication/service/share.service';
 
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
+
 export class ShoppingCartComponent implements OnInit {
   cartList: CartDTO[];
   quantity: number;
@@ -37,9 +39,38 @@ export class ShoppingCartComponent implements OnInit {
       // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < item.length; i++) {
         this.totalAmount += +item[i].amountCartDetail;
-        console.log('asdasd' + item[i]);
       }
       console.log(this.cartList);
+      render({
+        id: '#myPaypalButtons',
+        currency: 'USD',
+        value: this.totalAmount.toString(),
+        onApprove: (details) => {
+          this.cartService.payment(this.cartList).subscribe(() => {
+            Swal.fire({
+              title: 'Success!',
+              text: 'You are all set!',
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            });
+            this.totalAmount = 0;
+            this.getCart2();
+          });
+        }
+      });
+    });
+  }
+
+  getCart2() {
+    if (this.tokenStorageService.getToken()) {
+      this.userId = this.tokenStorageService.getUser().id;
+    }
+    this.cartService.getCartByAccountId(this.userId).subscribe(item => {
+      this.cartList = item;
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < item.length; i++) {
+        this.totalAmount += +item[i].amountCartDetail;
+      }
     });
   }
 
@@ -54,12 +85,13 @@ export class ShoppingCartComponent implements OnInit {
       this.quantity--;
       if (this.quantity === 0) {
         this.cartService.deleteCartById(cartDetailId).subscribe(next => {
-          this.getCart();
+          this.totalAmount = 0;
+          this.getCart2();
         });
       } else {
         this.cartService.changeQuantity(cartDetailId, this.quantity, this.deleted, productId, cartId).subscribe(next => {
           this.totalAmount = 0;
-          this.getCart();
+          this.getCart2();
         });
       }
     });
@@ -72,7 +104,7 @@ export class ShoppingCartComponent implements OnInit {
       this.quantity++;
       this.cartService.changeQuantity(cartDetailId, this.quantity, this.deleted, productId, cartId).subscribe(next => {
         this.totalAmount = 0;
-        this.getCart();
+        this.getCart2();
       });
     });
   }
@@ -85,7 +117,8 @@ export class ShoppingCartComponent implements OnInit {
         icon: 'success',
         confirmButtonText: 'Ok'
       });
-      this.getCart();
+      this.totalAmount = 0;
+      this.getCart2();
     });
   }
 

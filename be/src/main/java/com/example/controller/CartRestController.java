@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.dto.CartDTO;
 import com.example.dto.CartDetailDTO;
 import com.example.dto.IAccountDTO;
 import com.example.dto.ICartDTO;
@@ -13,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -80,6 +82,27 @@ public class CartRestController {
     public ResponseEntity<?> deleteCartDetailById(@PathVariable Long cartDetailId) {
         if (cartDetailId != null) {
             this.cartDetailService.delete(cartDetailId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("changeStatusDeleted/{cartDetailId}")
+    public ResponseEntity<?> changeStatusDeleted(@PathVariable Long cartDetailId) {
+        if (cartDetailId != null) {
+            this.cartDetailService.changStatusDeleted(cartDetailId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("payment")
+    @Transactional
+    public ResponseEntity<?> payment(@RequestBody List<CartDTO> cartList) {
+        if (cartList != null) {
+            for (int i = 0; i < cartList.size(); i++) {
+                this.cartDetailService.changStatusDeleted(cartList.get(i).getCartDetailId());
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

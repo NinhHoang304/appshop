@@ -10,4 +10,6 @@ public interface IProductService {
     Page<Product> findProductByName(String name, Pageable pageable);
 
     Product findProductById(Long id);
+
+    void save(Product product);
 }

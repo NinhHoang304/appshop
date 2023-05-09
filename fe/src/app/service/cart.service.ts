@@ -5,6 +5,7 @@ import {CartDTO} from '../dto/cart-dto';
 import {AccountDTO} from '../dto/account-dto';
 import {CartDetail} from '../model/cart-detail';
 import {CartDetailDTO} from '../dto/cart-detail-dto';
+import {Cart} from '../model/cart';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +37,13 @@ export class CartService {
 
   deleteCartById(cartDetailId: number) {
     return this.httpClient.get('http://localhost:8080/api/user/delete/cartDetail/' + cartDetailId);
+  }
+
+  changeStatusDeleted(cartDetailId: number) {
+    return this.httpClient.get('http://localhost:8080/api/user/changeStatusDeleted/' + cartDetailId);
+  }
+
+  payment(cartList: CartDTO[]) {
+    return this.httpClient.post('http://localhost:8080/api/user/payment', cartList );
   }
 }

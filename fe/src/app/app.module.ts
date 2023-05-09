@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NavbarComponent} from './component/shared/navbar/navbar.component';
 import {FooterComponent} from './component/shared/footer/footer.component';
 import {ContentComponent} from './component/shared/content/content.component';
@@ -24,7 +24,7 @@ import {AuthInterceptor} from './component/security-authentication/security-auth
     ProductDetailComponent,
     ShoppingCartComponent,
     LoginComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +32,7 @@ import {AuthInterceptor} from './component/security-authentication/security-auth
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
+    FormsModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]

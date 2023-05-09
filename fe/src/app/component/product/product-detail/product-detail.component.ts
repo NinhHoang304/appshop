@@ -97,19 +97,16 @@ export class ProductDetailComponent implements OnInit {
 
 
   addToCart(id: number) {
-    this.cartDetail = {
-      quantity: this.quantity,
-      deleted: this.deleted,
-      cart: {id: this.cartId},
-      product: {id}
-    };
-    console.log('asd22' + this.cartDetail);
-    this.cartService.addToCart(this.quantity, this.deleted, this.id, this.cartId).subscribe(next => {
-      Swal.fire({
-        title: 'Add Item To Cart Success!',
-        text: 'Do you want to continue',
-        icon: 'success',
-        confirmButtonText: 'Ok'
+    this.cartService.getCartIdByAccountId(this.userId).subscribe(item => {
+      this.cartId = item.cartId;
+      console.log('asd22' + this.cartId);
+      this.cartService.addToCart(this.quantity, this.deleted, id, this.cartId).subscribe(next => {
+        Swal.fire({
+          title: 'Add Item To Cart Success!',
+          text: 'Do you want to continue',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
       });
     });
   }

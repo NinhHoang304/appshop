@@ -68,6 +68,7 @@ export class ContentComponent implements OnInit {
     this.size += 4;
     this.getAllProducts();
   }
+
   showLoadMore(): boolean {
     return this.currentPage < this.totalPages - 1;
   }
