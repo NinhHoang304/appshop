@@ -20,6 +20,7 @@ export class ShoppingCartComponent implements OnInit {
   nameProduct = '';
   totalAmount = 0;
   userId: number;
+  paypalButton: any;
 
   constructor(private cartService: CartService,
               private tokenStorageService: TokenStorageService) {
@@ -41,7 +42,8 @@ export class ShoppingCartComponent implements OnInit {
         this.totalAmount += +item[i].amountCartDetail;
       }
       console.log(this.cartList);
-      render({
+      document.querySelector('#myPaypalButtons').innerHTML = '';
+      this.paypalButton = render({
         id: '#myPaypalButtons',
         currency: 'USD',
         value: this.totalAmount.toString(),
@@ -54,23 +56,10 @@ export class ShoppingCartComponent implements OnInit {
               confirmButtonText: 'Ok'
             });
             this.totalAmount = 0;
-            this.getCart2();
+            this.getCart();
           });
         }
       });
-    });
-  }
-
-  getCart2() {
-    if (this.tokenStorageService.getToken()) {
-      this.userId = this.tokenStorageService.getUser().id;
-    }
-    this.cartService.getCartByAccountId(this.userId).subscribe(item => {
-      this.cartList = item;
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < item.length; i++) {
-        this.totalAmount += +item[i].amountCartDetail;
-      }
     });
   }
 
@@ -86,12 +75,12 @@ export class ShoppingCartComponent implements OnInit {
       if (this.quantity === 0) {
         this.cartService.deleteCartById(cartDetailId).subscribe(next => {
           this.totalAmount = 0;
-          this.getCart2();
+          this.getCart();
         });
       } else {
         this.cartService.changeQuantity(cartDetailId, this.quantity, this.deleted, productId, cartId).subscribe(next => {
           this.totalAmount = 0;
-          this.getCart2();
+          this.getCart();
         });
       }
     });
@@ -104,7 +93,7 @@ export class ShoppingCartComponent implements OnInit {
       this.quantity++;
       this.cartService.changeQuantity(cartDetailId, this.quantity, this.deleted, productId, cartId).subscribe(next => {
         this.totalAmount = 0;
-        this.getCart2();
+        this.getCart();
       });
     });
   }
@@ -118,7 +107,7 @@ export class ShoppingCartComponent implements OnInit {
         confirmButtonText: 'Ok'
       });
       this.totalAmount = 0;
-      this.getCart2();
+      this.getCart();
     });
   }
 

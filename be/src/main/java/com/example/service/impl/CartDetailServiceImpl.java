@@ -19,7 +19,7 @@ public class CartDetailServiceImpl implements ICartDetailService {
     public void addToCart(CartDetail cartDetail) {
         List<CartDetail> cartDetailList = this.cartDetailRepository.findAll();
         for (CartDetail detail : cartDetailList) {
-            if (cartDetail.getProduct().getId() == detail.getProduct().getId()) {
+            if (cartDetail.getProduct().getId() == detail.getProduct().getId() && !detail.isDeleted()) {
                 cartDetail.setId(detail.getId());
                 cartDetail.setQuantity(cartDetail.getQuantity() + detail.getQuantity());
                 this.cartDetailRepository.save(cartDetail);
