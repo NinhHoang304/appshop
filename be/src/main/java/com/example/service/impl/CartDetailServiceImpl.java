@@ -47,4 +47,14 @@ public class CartDetailServiceImpl implements ICartDetailService {
     public void delete(Long id) {
         this.cartDetailRepository.deleteById(id);
     }
+
+    @Override
+    public List<CartDetail> findAll() {
+        return this.cartDetailRepository.findAll();
+    }
+
+    @Override
+    public void save(CartDetail cartDetail) {
+        this.cartDetailRepository.save(cartDetail);
+    }
 }

@@ -17,4 +17,7 @@ public interface ICartDetailService {
 
     void delete(Long id);
 
+    List<CartDetail> findAll();
+
+    void save (CartDetail cartDetail);
 }

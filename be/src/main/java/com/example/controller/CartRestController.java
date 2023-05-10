@@ -113,9 +113,17 @@ public class CartRestController {
                     product.setQuantity(product.getQuantity() - cartDTO.getQuantityCartDetail());
                     this.productService.save(product);
                     this.cartDetailService.changStatusDeleted(cartDTO.getCartDetailId());
-                    return new ResponseEntity<>(HttpStatus.OK);
+//                    List<CartDetail> cartDetailList = this.cartDetailService.findAll();
+//                    for (CartDetail cartDetail: cartDetailList) {
+//                        if (product.getId() == cartDetail.getProduct().getId() && cartDetail.isDeleted()) {
+//                            cartDTO.setCartDetailId(cartDetail.getProduct().getId());
+//                            cartDTO.setQuantityCartDetail(cartDTO.getQuantityCartDetail() + cartDetail.getQuantity());
+//                            this.cartDetailService.save(cartDetail);
+//                        }
+//                    }
                 }
             }
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

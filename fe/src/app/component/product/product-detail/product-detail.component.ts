@@ -67,7 +67,6 @@ export class ProductDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.id = +param.get('id');
       this.productService.getProductById(this.id).subscribe(item => {
-        console.log('asd' + item);
         this.product = item;
       });
     });
@@ -92,14 +91,27 @@ export class ProductDetailComponent implements OnInit {
   }
 
   add() {
-    this.quantity++;
+    this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
+      this.id = +param.get('id');
+      this.productService.getProductById(this.id).subscribe(item => {
+        if (this.quantity >= item.quantity) {
+          Swal.fire({
+            title: 'Error!',
+            text: this.product.name + ' quantity is not enough',
+            icon: 'error',
+            confirmButtonText: 'Continue'
+          });
+        } else {
+          this.quantity++;
+        }
+      });
+    });
   }
 
 
   addToCart(id: number) {
     this.cartService.getCartIdByAccountId(this.userId).subscribe(item => {
       this.cartId = item.cartId;
-      console.log('asd22' + this.cartId);
       this.cartService.addToCart(this.quantity, this.deleted, id, this.cartId).subscribe(next => {
         Swal.fire({
           title: 'Success!',

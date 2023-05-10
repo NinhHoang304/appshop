@@ -4,6 +4,8 @@ import {CartDTO} from '../../../dto/cart-dto';
 import Swal from 'sweetalert2';
 import {TokenStorageService} from '../../security-authentication/service/token-storage.service';
 import {render} from 'creditcardpayments/creditCardPayments';
+import {ParamMap} from '@angular/router';
+import {ProductService} from '../../../service/product.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -21,7 +23,8 @@ export class ShoppingCartComponent implements OnInit {
   userId: number;
 
   constructor(private cartService: CartService,
-              private tokenStorageService: TokenStorageService) {
+              private tokenStorageService: TokenStorageService,
+              private productService: ProductService) {
   }
 
   ngOnInit(): void {
@@ -97,10 +100,21 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.getCartDetailById(cartDetailId).subscribe(item => {
       this.quantity = item.quantity;
       this.deleted = item.deleted;
-      this.quantity++;
-      this.cartService.changeQuantity(cartDetailId, this.quantity, this.deleted, productId, cartId).subscribe(next => {
-        this.totalAmount = 0;
-        this.getCart();
+      this.productService.getProductById(productId).subscribe(itemProduct => {
+        if (this.quantity >= itemProduct.quantity) {
+          Swal.fire({
+            title: 'Error!',
+            text: 'This product quantity is not enough',
+            icon: 'error',
+            confirmButtonText: 'Continue'
+          });
+        } else {
+          this.quantity++;
+        }
+        this.cartService.changeQuantity(cartDetailId, this.quantity, this.deleted, productId, cartId).subscribe(next => {
+          this.totalAmount = 0;
+          this.getCart();
+        });
       });
     });
   }

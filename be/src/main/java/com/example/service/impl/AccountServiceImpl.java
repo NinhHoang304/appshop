@@ -21,4 +21,9 @@ public class AccountServiceImpl implements IAccountService {
         return this.accountRepository.findCartIdByAccountId(accountId);
     }
 
+    @Override
+    public Account findAccountById(Long id) {
+        return this.accountRepository.findAccountById(id);
+    }
+
 }

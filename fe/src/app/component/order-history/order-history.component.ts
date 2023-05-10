@@ -19,6 +19,7 @@ export class OrderHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrderHistory();
+    this.view();
   }
 
   getOrderHistory() {
@@ -30,4 +31,7 @@ export class OrderHistoryComponent implements OnInit {
     });
   }
 
+  view(): void {
+    window.scrollTo(0, 0);
+  }
 }

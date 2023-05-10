@@ -7,4 +7,6 @@ public interface IAccountService {
     Account findAccountByEmail(String email);
 
     IAccountDTO findCartIdByAccountId(Long accountId);
+
+    Account findAccountById(Long id);
 }
