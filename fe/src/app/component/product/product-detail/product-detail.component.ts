@@ -28,6 +28,8 @@ export class ProductDetailComponent implements OnInit {
   deleted = false;
   cartDetail: CartDetail;
   isDisabled: boolean;
+  totalQuantityCartDetail = 0;
+  tempQuantity = 0;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -94,16 +96,30 @@ export class ProductDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((param: ParamMap) => {
       this.id = +param.get('id');
       this.productService.getProductById(this.id).subscribe(item => {
-        if (this.quantity >= item.quantity) {
-          Swal.fire({
-            title: 'Error!',
-            text: this.product.name + ' quantity is not enough',
-            icon: 'error',
-            confirmButtonText: 'Continue'
-          });
-        } else {
-          this.quantity++;
+        if (this.tokenStorageService.getToken()) {
+          this.userId = this.tokenStorageService.getUser().id;
         }
+        this.cartService.getCartByAccountId(this.userId).subscribe(item2 => {
+          // tslint:disable-next-line:prefer-for-of
+          for (let i = 0; i < item2?.length; i++) {
+            this.totalQuantityCartDetail = +item2[i].quantityCartDetail;
+          }
+          console.log(this.totalQuantityCartDetail);
+          console.log(item.quantity);
+          this.tempQuantity = item.quantity - this.totalQuantityCartDetail;
+          console.log(this.tempQuantity);
+          console.log(this.quantity);
+          if (this.quantity >= this.tempQuantity) {
+            Swal.fire({
+              title: 'Error!',
+              text: this.product.name + ' quantity is not enough',
+              icon: 'error',
+              confirmButtonText: 'Continue'
+            });
+          } else {
+            this.quantity++;
+          }
+        });
       });
     });
   }
@@ -119,6 +135,7 @@ export class ProductDetailComponent implements OnInit {
           icon: 'success',
           confirmButtonText: 'Continue'
         });
+        this.shareService.sendClickEvent();
       });
     });
   }

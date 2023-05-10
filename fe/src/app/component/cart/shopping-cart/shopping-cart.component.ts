@@ -6,6 +6,7 @@ import {TokenStorageService} from '../../security-authentication/service/token-s
 import {render} from 'creditcardpayments/creditCardPayments';
 import {ParamMap} from '@angular/router';
 import {ProductService} from '../../../service/product.service';
+import {ShareService} from '../../security-authentication/service/share.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -24,7 +25,8 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private cartService: CartService,
               private tokenStorageService: TokenStorageService,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private shareService: ShareService) {
   }
 
   ngOnInit(): void {
@@ -39,9 +41,10 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.getCartByAccountId(this.userId).subscribe(item => {
       this.cartList = item;
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < item.length; i++) {
+      for (let i = 0; i < item?.length; i++) {
         this.totalAmount += +item[i].amountCartDetail;
       }
+      this.shareService.sendClickEvent();
       console.log(this.cartList);
       document.querySelector('#myPaypalButtons').innerHTML = '';
       render({

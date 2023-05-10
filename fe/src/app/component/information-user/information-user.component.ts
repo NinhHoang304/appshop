@@ -18,6 +18,11 @@ export class InformationUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAccount();
+    this.view();
+  }
+
+  view(): void {
+    window.scrollTo(0, 0);
   }
 
   getAccount() {

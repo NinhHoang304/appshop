@@ -29,11 +29,11 @@
                 <td class="column-3">{{item?.priceProduct | number:'1.0-0'}} $</td>
                 <td class="column-4">
                   <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" (click)="subtract(item.cartDetailId, item.productId, item.cartId)">
+                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" (click)="subtract(item?.cartDetailId, item?.productId, item?.cartId)">
                       <i class="fs-16 zmdi zmdi-minus"></i>
                     </div>
                     <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" readonly value="{{item?.quantityCartDetail}}">
-                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" (click)="add(item.cartDetailId, item.productId, item.cartId)">
+                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" (click)="add(item?.cartDetailId, item?.productId, item?.cartId)">
                       <i class="fs-16 zmdi zmdi-plus"></i>
                     </div>
                   </div>
@@ -43,7 +43,7 @@
                 </td>
                 <td class="column-5">
                   <!-- Button trigger modal -->
-                  <button type="button" (click)="getInfoDelete(item.cartDetailId, item.nameProduct)" class="btn" data-toggle="modal" data-target="#exampleModal">
+                  <button type="button" (click)="getInfoDelete(item?.cartDetailId, item?.nameProduct)" class="btn" data-toggle="modal" data-target="#exampleModal">
                     <img src="https://shopdunk.com/images/uploaded-source/icon/remove-cart.png" alt="">
                   </button>
                 </td>
