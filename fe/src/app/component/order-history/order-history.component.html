@@ -18,9 +18,10 @@
         <th class="column-3 text-center">Price</th>
         <th class="column-4 text-center">Quantity</th>
         <th class="column-5 text-center">Total</th>
+        <th class="column-5 text-center">Buy More</th>
       </tr>
       <tr *ngIf="!cartList" style="height: 150px; border: 1px solid #e6e6e6">
-        <td colspan="6">
+        <td colspan="8">
           <h4 class="text-center">Your order history is empty</h4>
         </td>
       </tr>
@@ -38,6 +39,12 @@
         </td>
         <td class="column-5">
           {{item?.amountCartDetail | number:'1.0-0'}} $
+        </td>
+        <td class="column-5">
+          <div>
+            <a class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
+               routerLink="/product/detail/{{userId}}">Click Here</a>
+          </div>
         </td>
       </tr>
     </table>

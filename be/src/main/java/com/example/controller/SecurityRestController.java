@@ -50,14 +50,16 @@ public class SecurityRestController {
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+        // Xác thực
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        // Khởi tạo jwt
         String jwt = jwtUtility.generateJwtToken(loginRequest.getUsername());
         AccountDetails userDetails = (AccountDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-
+        // Gởi những dữ liệu cần dùng
         return ResponseEntity.ok(
                 new JwtResponse(jwt,
                         userDetails.getUsername(),

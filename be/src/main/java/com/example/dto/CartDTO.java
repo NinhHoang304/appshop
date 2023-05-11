@@ -9,11 +9,13 @@ public class CartDTO {
     double priceProduct;
     int quantityCartDetail;
     int amountCartDetail;
+    String dateOfOrder;
 
     public CartDTO() {
     }
 
-    public CartDTO(Long productId, Long cartId, Long cartDetailId, String imageProduct, String nameProduct, double priceProduct, int quantityCartDetail, int amountCartDetail) {
+    public CartDTO(Long productId, Long cartId, Long cartDetailId,
+                   String imageProduct, String nameProduct, double priceProduct, int quantityCartDetail, int amountCartDetail, String dateOfOrder) {
         this.productId = productId;
         this.cartId = cartId;
         this.cartDetailId = cartDetailId;
@@ -22,6 +24,7 @@ public class CartDTO {
         this.priceProduct = priceProduct;
         this.quantityCartDetail = quantityCartDetail;
         this.amountCartDetail = amountCartDetail;
+        this.dateOfOrder = dateOfOrder;
     }
 
     public Long getProductId() {
@@ -86,5 +89,13 @@ public class CartDTO {
 
     public void setAmountCartDetail(int amountCartDetail) {
         this.amountCartDetail = amountCartDetail;
+    }
+
+    public String getDateOfOrder() {
+        return dateOfOrder;
+    }
+
+    public void setDateOfOrder(String dateOfOrder) {
+        this.dateOfOrder = dateOfOrder;
     }
 }

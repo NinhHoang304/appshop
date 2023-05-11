@@ -66,10 +66,6 @@ values
 (1, '2023-04-27', 2),
 (2, '2023-05-08', 3);
 
-insert into cart_detail (id, deleted, quantity, cart_id, product_id)
-values
-(1, 0, 1, 1, 2),
-(2, 0, 1, 2, 3);
 
 
 

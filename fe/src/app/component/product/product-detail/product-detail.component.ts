@@ -102,7 +102,9 @@ export class ProductDetailComponent implements OnInit {
         this.cartService.getCartByAccountId(this.userId).subscribe(item2 => {
           // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < item2?.length; i++) {
-            this.totalQuantityCartDetail = +item2[i].quantityCartDetail;
+            if (item.id === item2[i].productId) {
+              this.totalQuantityCartDetail = +item2[i].quantityCartDetail;
+            }
           }
           console.log(this.totalQuantityCartDetail);
           console.log(item.quantity);

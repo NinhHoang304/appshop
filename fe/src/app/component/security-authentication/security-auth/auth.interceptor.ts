@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private tokenStorageService: TokenStorageService,
               private router: Router) {}
-
+  // Chạy mỗi khi call api xảy ra, và sẽ định dạng lại token gửi về cho server xử lí
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authRequest = request;
     const token = this.tokenStorageService.getToken();

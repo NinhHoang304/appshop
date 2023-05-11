@@ -58,10 +58,7 @@ public class CartRestController {
                                        @PathVariable boolean deleted,
                                        @PathVariable Long cartId,
                                        @PathVariable Long productId) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        String formatterDateTime = currentDateTime.format(formatter);
-        CartDetail cartDetail = new CartDetail(quantity, deleted, new Product(productId), new Cart(cartId), formatterDateTime);
+        CartDetail cartDetail = new CartDetail(quantity, deleted, new Product(productId), new Cart(cartId));
         this.cartDetailService.addToCart(cartDetail);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -118,14 +115,11 @@ public class CartRestController {
                     product.setQuantity(product.getQuantity() - cartDTO.getQuantityCartDetail());
                     this.productService.save(product);
                     this.cartDetailService.changStatusDeleted(cartDTO.getCartDetailId());
-//                    List<CartDetail> cartDetailList = this.cartDetailService.findAll();
-//                    for (CartDetail cartDetail: cartDetailList) {
-//                        if (product.getId() == cartDetail.getProduct().getId() && cartDetail.isDeleted()) {
-//                            cartDTO.setCartDetailId(cartDetail.getProduct().getId());
-//                            cartDTO.setQuantityCartDetail(cartDTO.getQuantityCartDetail() + cartDetail.getQuantity());
-//                            this.cartDetailService.save(cartDetail);
-//                        }
-//                    }
+                    LocalDateTime currentDateTime = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                    String formatterDateTime = currentDateTime.format(formatter);
+                    CartDetail cartDetail = this.cartDetailService.findById(cartDTO.getCartDetailId());
+                    cartDetail.setDateOfOrder(formatterDateTime);
                 }
             }
             return new ResponseEntity<>(HttpStatus.OK);

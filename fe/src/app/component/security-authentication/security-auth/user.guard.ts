@@ -14,14 +14,14 @@ export class UserGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (this.token.getToken()) {
-      if ((this.token.getRole() === 'ROLE_ADMIN' || this.token.getRole() === 'ROLE_USER') && this.token.isLogger()) {
+      if ((this.token.getRole() === 'ROLE_ADMIN' || this.token.getRole() === 'ROLE_USER')) {
         return true;
       } else {
         this.router.navigateByUrl('/error');
         return false;
       }
     } else {
-      this.router.navigateByUrl('/error');
+      this.router.navigateByUrl('/login');
       return false;
     }
   }
