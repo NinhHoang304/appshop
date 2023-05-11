@@ -7,4 +7,5 @@ export interface CartDTO {
   priceProduct: number;
   quantityCartDetail: number;
   amountCartDetail: number;
+  dateOfOrder: string;
 }

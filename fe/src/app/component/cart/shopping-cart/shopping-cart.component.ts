@@ -32,6 +32,13 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
     this.view();
     this.getCart();
+    this.getUserIdByToken();
+  }
+
+  getUserIdByToken() {
+    if (this.tokenStorageService.getToken()) {
+      this.userId = this.tokenStorageService.getUser().id;
+    }
   }
 
   getCart() {
@@ -53,15 +60,15 @@ export class ShoppingCartComponent implements OnInit {
         value: this.totalAmount.toString(),
         onApprove: (details) => {
           this.cartService.payment(this.cartList).subscribe(() => {
-            Swal.fire({
-              title: 'Payment Success!',
-              text: 'You are all set!',
-              icon: 'success',
-              confirmButtonText: 'Ok'
-            });
-            this.totalAmount = 0;
-            this.getCart();
-          },
+              Swal.fire({
+                title: 'Payment Success!',
+                text: 'You are all set!',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              });
+              this.totalAmount = 0;
+              this.getCart();
+            },
             (error) => {
               Swal.fire({
                 title: 'Payment Error!',

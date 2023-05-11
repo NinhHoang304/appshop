@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.model.Cart;
 import com.example.model.CartDetail;
 import com.example.repository.ICartRepository;
 import com.example.dto.ICartDTO;
@@ -20,6 +21,11 @@ public class CartServiceImpl implements ICartService {
     @Override
     public List<ICartDTO> getOrderHistory(Long id) {
         return this.cartRepository.getOrderHistory(id);
+    }
+
+    @Override
+    public Cart findById(Long id) {
+        return this.cartRepository.findById(id).orElse(null);
     }
 
 }

@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -56,7 +58,10 @@ public class CartRestController {
                                        @PathVariable boolean deleted,
                                        @PathVariable Long cartId,
                                        @PathVariable Long productId) {
-        CartDetail cartDetail = new CartDetail(quantity, deleted, new Product(productId), new Cart(cartId));
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        String formatterDateTime = currentDateTime.format(formatter);
+        CartDetail cartDetail = new CartDetail(quantity, deleted, new Product(productId), new Cart(cartId), formatterDateTime);
         this.cartDetailService.addToCart(cartDetail);
         return new ResponseEntity<>(HttpStatus.OK);
     }

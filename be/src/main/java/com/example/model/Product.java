@@ -28,6 +28,8 @@ public class Product {
     private String image;
     @Column(columnDefinition = "bit(1)")
     private boolean deleted;
+    @Column(columnDefinition = "date")
+    private String dateOfCreate;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -56,6 +58,22 @@ public class Product {
         this.description = description;
         this.image = image;
         this.deleted = deleted;
+        this.category = category;
+        this.cartDetailSet = cartDetailSet;
+    }
+
+    public Product(Long id, String code, String name, double price, int quantity, String brand, String description,
+                   String image, boolean deleted, String dateOfCreate, Category category, Set<CartDetail> cartDetailSet) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.brand = brand;
+        this.description = description;
+        this.image = image;
+        this.deleted = deleted;
+        this.dateOfCreate = dateOfCreate;
         this.category = category;
         this.cartDetailSet = cartDetailSet;
     }
@@ -145,6 +163,22 @@ public class Product {
     }
 
     public void setOrderDetailSet(Set<CartDetail> cartDetailSet) {
+        this.cartDetailSet = cartDetailSet;
+    }
+
+    public String getDateOfCreate() {
+        return dateOfCreate;
+    }
+
+    public void setDateOfCreate(String dateOfCreate) {
+        this.dateOfCreate = dateOfCreate;
+    }
+
+    public Set<CartDetail> getCartDetailSet() {
+        return cartDetailSet;
+    }
+
+    public void setCartDetailSet(Set<CartDetail> cartDetailSet) {
         this.cartDetailSet = cartDetailSet;
     }
 }

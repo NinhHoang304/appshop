@@ -31,6 +31,7 @@ public interface ICartRepository extends JpaRepository<Cart, Long> {
             " c.id as cartId,\n" +
             " p.name as nameProduct,\n" +
             " p.price as priceProduct,\n" +
+            " cd.date_of_order as dateOfOrder,\n" +
             " SUM(cd.quantity) as quantityCartDetail,\n" +
             " SUM(p.price * cd.quantity) as amountCartDetail\n" +
             "FROM cart c\n" +

@@ -13,6 +13,8 @@ public class CartDetail {
     private int quantity;
     @Column(columnDefinition = "bit(1)")
     private boolean deleted;
+    @Column(columnDefinition = "date")
+    private String dateOfOrder;
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @JsonBackReference
@@ -30,6 +32,14 @@ public class CartDetail {
         this.id = id;
         this.quantity = quantity;
         this.deleted = deleted;
+        this.product = product;
+        this.cart = cart;
+    }
+
+    public CartDetail(int quantity, boolean deleted, Product product, Cart cart, String dateOfOrder) {
+        this.quantity = quantity;
+        this.deleted = deleted;
+        this.dateOfOrder = dateOfOrder;
         this.product = product;
         this.cart = cart;
     }
@@ -79,5 +89,13 @@ public class CartDetail {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public String getDateOfOrder() {
+        return dateOfOrder;
+    }
+
+    public void setDateOfOrder(String dateOfOrder) {
+        this.dateOfOrder = dateOfOrder;
     }
 }

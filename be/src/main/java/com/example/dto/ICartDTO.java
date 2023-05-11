@@ -9,4 +9,5 @@ public interface ICartDTO {
     double getPriceProduct();
     int getQuantityCartDetail();
     int getAmountCartDetail();
+    String getDateOfOrder();
 }
