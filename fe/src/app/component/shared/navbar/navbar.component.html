@@ -33,11 +33,11 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="">Support</a>
         </li>
-        <li class="nav-item" style="margin-left: 15px">
-          <a type="button" style="color: white" href="">
-            <i class="fa fa-search fa-lg" aria-hidden="true"></i>
-          </a>
-        </li>
+<!--        <li class="nav-item" style="margin-left: 15px">-->
+<!--          <a type="button" style="color: white" href="">-->
+<!--            <i class="fa fa-search fa-lg" aria-hidden="true"></i>-->
+<!--          </a>-->
+<!--        </li>-->
         <li [hidden]="!isLoggedIn" class="nav-item" style="margin-left: 15px">
           <a type="button" style="color: white" routerLink="product/cart/{{userId}}">
             <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"><sup *ngIf="totalQuantity > 0">{{totalQuantity}}</sup></i>
